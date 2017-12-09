@@ -1,5 +1,6 @@
 FROM alpine
-MAINTAINER WangXian <xian366@126.com>
+#MAINTAINER WangXian <xian366@126.com>
+LABEL maintainer "lorenwe <lorenwe@kaolanet.com>" architecture="AMD64/x86_64"  mysqlversion="5.6"
 
 WORKDIR /app
 VOLUME /app
