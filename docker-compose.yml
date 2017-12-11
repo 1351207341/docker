@@ -1,0 +1,32 @@
+version: '3.4'
+services:
+  mysql:
+    image: alpine_mysql
+    volumes:
+      - "./alpine-mysql/mysql:/app/mysql"
+    environment:
+      MYSQL_DATABASE: docker
+      MYSQL_USER: docker
+      MYSQL_PASSWORD: docker
+      MYSQL_ROOT_PASSWORD: root
+  php-fpm:
+    depends_on:
+      - mysql
+    image: alpine_php7
+    volumes:
+      - "./www:/var/www/html"
+    links:
+      - mysql
+    expose:
+        - "9000"
+  nginx:
+    depends_on:
+        - php-fpm
+    image: alpine_nginx
+    volumes:
+      - "./www:/var/www/html"
+    links:
+      - php-fpm:php
+    ports:
+      - "8080:80"
+      - "443:443"
